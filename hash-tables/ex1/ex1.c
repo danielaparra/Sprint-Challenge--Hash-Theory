@@ -5,10 +5,39 @@
 
 Answer *get_indices_of_item_weights(int *weights, int length, int limit)
 {
+  // Create hash table to store weights and their indices.
   HashTable *ht = create_hash_table(16);
 
-  // YOUR CODE HERE
+  // Iternate through weights array to add weights and their indices to the hash table.
+  for (int i = 0; i < length; i ++) {
+    hash_table_insert(ht, weights[i], i);
+  }
 
+  // Iterate through weights array to find 2 weights that sum up to given limit.
+  for (int i = 0; i < length; i ++) {
+    // Grab index of key for limit minus weight at index i.
+    int index = hash_table_retrieve(ht, limit - weights[i]);
+    // Check that value exists in hash table by checking its index (shouldn't equal -1).
+    if (index != -1) {
+      // Create answer struct.
+      Answer *answer = malloc(sizeof(Answer));
+      // Find out which weight is greater and make index 1 the greater weight's index.
+      if (weights[i] > (limit - weights[i])) {
+        answer->index_1 = i;
+        answer->index_2 = index;
+      } else {
+        answer->index_1 = index;
+        answer->index_2 = i;
+      }
+      // Destroy hash table to avoid memory leaks.
+      destroy_hash_table(ht);
+      // Return answer with indices for 2 weights.
+      return answer;
+    }
+  }  
+  // Destroy hash table to avoid memory leaks.
+  destroy_hash_table(ht);
+  // If couldn't find 2 weights that sum up to limit, return NULL.
   return NULL;
 }
 
