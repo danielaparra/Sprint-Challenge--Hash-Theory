@@ -29,6 +29,8 @@ char **reconstruct_trip(Ticket **tickets, int length)
   }
   // Add "NONE" to the end of the route;
   route[index] = "NONE";
+  // Destroy hashtable to avoid memory leaks.
+  destroy_hash_table(ht);
   // Return route through all cities.
   return route;
 }
