@@ -6,11 +6,30 @@
 
 char **reconstruct_trip(Ticket **tickets, int length)
 {
+  // Create hashtable and route variables.
   HashTable *ht = create_hash_table(16);
   char **route = malloc(length * sizeof(char *));
+  // Iterate through hash table to insert tickets' source and destination as key - value pairs.
+  for (int i =0; i < length; i++) {
+    hash_table_insert(ht, tickets[i]->source, tickets[i]->destination);
+  }
+  // Create starting value, current city, and index.
+  char *start_value = "NONE";
+  char *current_city = hash_table_retrieve(ht, start_value);
+  int index = 0;
 
-  // YOUR CODE HERE
-
+  // Traverse through hash table while current city isn't "NONE".
+  while(strcmp(current_city, "NONE") != 0) {
+    // Add current city to route at index index.
+    route[index] = current;
+    // Increase index by 1;
+    index++;
+    // Update current city to the value of the current city in the hash table.
+    current_city = hash_table_retrieve(ht, current_city); 
+  }
+  // Add "NONE" to the end of the route;
+  route[index] = "NONE";
+  // Return route through all cities.
   return route;
 }
 
