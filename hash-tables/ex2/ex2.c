@@ -21,7 +21,7 @@ char **reconstruct_trip(Ticket **tickets, int length)
   // Traverse through hash table while current city isn't "NONE".
   while(strcmp(current_city, "NONE") != 0) {
     // Add current city to route at index index.
-    route[index] = current;
+    route[index] = current_city;
     // Increase index by 1;
     index++;
     // Update current city to the value of the current city in the hash table.
