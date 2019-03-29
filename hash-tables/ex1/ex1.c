@@ -21,8 +21,8 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
     if (index != -1) {
       // Create answer struct.
       Answer *answer = malloc(sizeof(Answer));
-      // Find out which weight is greater and make index 1 the greater weight's index.
-      if (weights[i] > (limit - weights[i])) {
+      // Find out which index is greater and make index 1 the greater index.
+      if (i > index) {
         answer->index_1 = i;
         answer->index_2 = index;
       } else {
